@@ -1,8 +1,0 @@
-query GetActiveBusinessCampaigns {
-  getActiveBusinessCampaigns {
-    ...BusinessCampaign
-    content {
-      ...BusinessCampaignContent
-    }
-  }
-}

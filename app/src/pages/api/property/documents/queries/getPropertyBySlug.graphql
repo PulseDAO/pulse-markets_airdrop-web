@@ -1,7 +1,0 @@
-query GetPropertyBySlug($input: GetPropertyBySlugInput!) {
-  getPropertyBySlug(input: $input) {
-    content {
-      ...PropertyContent
-    }
-  }
-}
