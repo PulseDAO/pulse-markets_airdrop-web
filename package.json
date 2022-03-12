@@ -45,6 +45,7 @@
   },
   "lint-staged": {
     "./app/{src,cypress,storybook,scripts}/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
       "prettier --list-different --write"
     ],
     "./**/*.{json,scss}": [
