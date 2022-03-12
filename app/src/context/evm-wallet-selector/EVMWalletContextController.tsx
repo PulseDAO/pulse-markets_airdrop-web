@@ -4,25 +4,31 @@ import { EVMWalletSelectorContext } from "./EVMWalletSelectorContext";
 import { Provider, EVMWalletSelectorContextControllerProps, Web3ContextStatus } from "./EVMWalletSelectorContext.types";
 
 export const EVMWalletSelectorContextController = ({ children }: EVMWalletSelectorContextControllerProps) => {
-  //Should provider options come from props?
-  const web3modal = useMemo(() => new Web3Modal({ providerOptions: {} }), []);
+  const web3modal = useMemo(() => {
+    if (typeof window !== "undefined") {
+      //Should provider options come from props?
+      return new Web3Modal({
+        providerOptions: {},
+      });
+    }
+  }, []);
 
   const [provider, setProvider] = useState<Provider>({});
   const [status, setStatus] = useState<Web3ContextStatus>(() => {
-    return web3modal.cachedProvider ? Web3ContextStatus.Connecting : Web3ContextStatus.NotAsked;
+    return web3modal?.cachedProvider ? Web3ContextStatus.Connecting : Web3ContextStatus.NotAsked;
   });
 
   const reset = useCallback(
     async (currentProvider: Provider) => {
-      if (currentProvider._web3Provider && currentProvider._web3Provider.disconnet) {
-        await provider?._web3Provider?.disconnect();
+      if (currentProvider._web3Provider && currentProvider._web3Provider.disconnect) {
+        await currentProvider?._web3Provider?.disconnect();
       }
 
       if (currentProvider.close) {
         await currentProvider.close();
       }
 
-      await web3modal.clearCachedProvider();
+      await web3modal?.clearCachedProvider();
 
       setStatus(Web3ContextStatus.NotAsked);
     },
@@ -31,12 +37,18 @@ export const EVMWalletSelectorContextController = ({ children }: EVMWalletSelect
 
   const connect = useCallback(async () => {
     try {
-      if (status === Web3ContextStatus.Connected) return;
+      if (status === Web3ContextStatus.Connected) {
+        //Let know the user that is already connected?
+        return;
+      }
 
-      const web3Provider = await web3modal.connect();
+      const web3Provider = await web3modal?.connect();
+
       setProvider(web3Provider);
+      setStatus(Web3ContextStatus.Connected);
     } catch (error) {
-      web3modal.clearCachedProvider();
+      console.log(error);
+      web3modal?.clearCachedProvider();
       setStatus(Web3ContextStatus.Error);
     }
   }, [status, reset]);
@@ -47,7 +59,7 @@ export const EVMWalletSelectorContextController = ({ children }: EVMWalletSelect
 
       await reset(provider);
     } catch (error) {
-      web3modal.clearCachedProvider();
+      web3modal?.clearCachedProvider();
     }
   }, [status, provider, reset]);
 
