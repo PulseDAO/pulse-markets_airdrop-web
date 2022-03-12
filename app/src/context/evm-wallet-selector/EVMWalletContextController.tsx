@@ -1,3 +1,4 @@
+import WalletConnectProvider from "@walletconnect/web3-provider";
 import React, { useCallback, useMemo, useState } from "react";
 import Web3Modal from "web3modal";
 import { EVMWalletSelectorContext } from "./EVMWalletSelectorContext";
@@ -8,7 +9,15 @@ export const EVMWalletSelectorContextController = ({ children }: EVMWalletSelect
     if (typeof window !== "undefined") {
       //Should provider options come from props?
       return new Web3Modal({
-        providerOptions: {},
+        cacheProvider: true,
+        providerOptions: {
+          walletconnect: {
+            package: WalletConnectProvider,
+            options: {
+              infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+            },
+          },
+        },
       });
     }
   }, []);
@@ -20,8 +29,9 @@ export const EVMWalletSelectorContextController = ({ children }: EVMWalletSelect
 
   const reset = useCallback(
     async (currentProvider: Provider) => {
-      if (currentProvider._web3Provider && currentProvider._web3Provider.disconnect) {
-        await currentProvider?._web3Provider?.disconnect();
+      /*eslint no-underscore-dangle: ["error", { "allow": ["_web3Provider"] }]*/
+      if (currentProvider?._web3Provider?.disconnect) {
+        await currentProvider._web3Provider.disconnect();
       }
 
       if (currentProvider.close) {
@@ -32,7 +42,7 @@ export const EVMWalletSelectorContextController = ({ children }: EVMWalletSelect
 
       setStatus(Web3ContextStatus.NotAsked);
     },
-    [setStatus],
+    [setStatus, web3modal],
   );
 
   const connect = useCallback(async () => {
@@ -47,11 +57,10 @@ export const EVMWalletSelectorContextController = ({ children }: EVMWalletSelect
       setProvider(web3Provider);
       setStatus(Web3ContextStatus.Connected);
     } catch (error) {
-      console.log(error);
       web3modal?.clearCachedProvider();
       setStatus(Web3ContextStatus.Error);
     }
-  }, [status, reset]);
+  }, [status, web3modal]);
 
   const disconnect = useCallback(async () => {
     try {
@@ -61,7 +70,7 @@ export const EVMWalletSelectorContextController = ({ children }: EVMWalletSelect
     } catch (error) {
       web3modal?.clearCachedProvider();
     }
-  }, [status, provider, reset]);
+  }, [status, provider, reset, web3modal]);
 
   return (
     <EVMWalletSelectorContext.Provider value={{ connect, disconnect, status, provider }}>
