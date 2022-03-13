@@ -2,7 +2,6 @@ import { Hidden } from "react-grid-system";
 
 import { Typography } from "../typography/Typography";
 import { useRoutes } from "hooks/useRoutes/useRoutes";
-import { NearHoldingsIcon } from "ui/icons/NearHoldingsIcon";
 import { Grid } from "ui/grid/Grid";
 import { WalletSelector } from "ui/wallet-selector/WalletSelector";
 
@@ -19,12 +18,12 @@ export const WalletSelectorNavbar: React.FC<WalletSelectorNavbarProps> = () => {
           <Grid.Col lg={3} sm={3} xs={6}>
             <div className={styles["wallet-selector-navbar__logo-mobile"]}>
               <Typography.Link href={routes.home}>
-                <NearHoldingsIcon />
+                <p>Pulse Logo</p>
               </Typography.Link>
             </div>
             <div className={styles["wallet-selector-navbar__logo-desktop"]}>
               <Typography.Link href={routes.home}>
-                <NearHoldingsIcon />
+                <p>Pulse Logo</p>
               </Typography.Link>
             </div>
           </Grid.Col>

@@ -7,6 +7,7 @@ import { ToastContextController } from "context/toast/ToastContextController";
 import { LocaleSelector } from "ui/locale-selector/LocaleSelector";
 
 import { AppLayoutProps } from "./AppLayout.types";
+import { EVMWalletSelectorContextController } from "context/evm-wallet-selector/EVMWalletContextController";
 
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const { t } = useTranslation("head");
@@ -39,8 +40,10 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       </Head>
       <ToastContextController>
         <LocaleSelector>
-          <div id="modal-root" />
-          <main>{children}</main>
+          <EVMWalletSelectorContextController>
+            <div id="modal-root" />
+            <main>{children}</main>
+          </EVMWalletSelectorContextController>
         </LocaleSelector>
       </ToastContextController>
     </>
