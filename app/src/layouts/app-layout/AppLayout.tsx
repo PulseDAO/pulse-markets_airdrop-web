@@ -5,9 +5,9 @@ import { useTranslation } from "react-i18next";
 
 import { ToastContextController } from "context/toast/ToastContextController";
 import { LocaleSelector } from "ui/locale-selector/LocaleSelector";
+import { EVMWalletSelectorContextController } from "context/evm-wallet-selector/EVMWalletContextController";
 
 import { AppLayoutProps } from "./AppLayout.types";
-import { EVMWalletSelectorContextController } from "context/evm-wallet-selector/EVMWalletContextController";
 
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const { t } = useTranslation("head");
