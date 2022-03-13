@@ -1,4 +1,5 @@
 import { createContext } from "react";
-import { ConnectedWeb3Context } from "./EVMWalletSelectorContext.types";
 
-export const EVMWalletSelectorContext = createContext<ConnectedWeb3Context | undefined>(undefined);
+import { WalletSelectorContextType } from "context/wallet-selector/WalletSelectorContext.types";
+
+export const EVMWalletSelectorContext = createContext<WalletSelectorContextType | undefined>(undefined);

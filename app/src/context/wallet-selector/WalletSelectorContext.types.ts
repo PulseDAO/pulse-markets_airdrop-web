@@ -1,7 +1,7 @@
 import { Near, WalletConnection as NEARWalletConnection } from "near-api-js";
 import { ReactNode } from "react";
 
-import { NEARSignInOptions } from "context/near-wallet/NearWalletContext.types";
+import { Provider } from "context/evm-wallet-selector/EVMWalletSelectorContext.types";
 
 export type WalletSelectorContextControllerProps = {
   children: ReactNode;
@@ -9,6 +9,7 @@ export type WalletSelectorContextControllerProps = {
 
 export enum WalletSelectorChain {
   near = "near",
+  evm = "evm",
 }
 
 export type WalletSelectorContextType = {
@@ -19,10 +20,10 @@ export type WalletSelectorContextType = {
   chain?: WalletSelectorChain;
   isConnected: boolean;
   onSetChain: (chain: WalletSelectorChain) => void;
-  onClickConnect: (args?: NEARSignInOptions) => void;
+  onClickConnect: () => void;
   context: {
     connection: NEARWalletConnection | undefined;
-    provider: Near | undefined;
+    provider: Near | Provider | undefined;
     guest: { address: string };
   };
 };
