@@ -14,33 +14,11 @@
   "plugins": [
     "stylelint-scss",
     "stylelint-order",
-    "stylelint-no-unsupported-browser-features",
     "stylelint-prettier"
   ],
   "rules": {
     "prettier/prettier": true,
     "selector-class-pattern": "^[a-z]([a-z0-9-]+)?(__([a-z0-9]+-?)+)?(--([a-z0-9]+-?)+){0,2}$",
-    "plugin/no-unsupported-browser-features": [
-      true,
-      {
-        "browsers": [
-          ">0.25%",
-          "not dead",
-          "not op_mini all",
-          "not ie <=11"
-        ],
-        "ignore": [
-          "rem",
-          "viewport-units",
-          "flexbox",
-          "calc",
-          "outline",
-          "css3-cursors",
-          "user-select-none"
-        ],
-        "severity": "warning"
-      }
-    ],
     "no-eol-whitespace": true,
     "no-descending-specificity": null,
     "indentation": 2,

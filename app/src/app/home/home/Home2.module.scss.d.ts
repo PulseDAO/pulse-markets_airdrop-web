@@ -21,6 +21,7 @@ export type Styles = {
   "button--dark": string;
   "button--extra-small": string;
   "button--full-width": string;
+  "button--gradient": string;
   "button--info": string;
   "button--inverted": string;
   "button--large": string;
@@ -44,8 +45,6 @@ export type Styles = {
   "button-outline--medium": string;
   home: string;
   "home__button-box": string;
-  "home__featured-assets": string;
-  "home__featured-assets--cards": string;
   home__intro: string;
   "home__intro--box": string;
   "home__intro--cta": string;
@@ -53,15 +52,10 @@ export type Styles = {
   "home__intro--image": string;
   "home__intro--linear-gradient": string;
   "home__intro--text-block": string;
-  "home__powered-by": string;
+  "home__no-claim": string;
+  "home__no-claim--warning": string;
   "home__property-card--cta": string;
   "home__property-card--row": string;
-  home__section: string;
-  "home__use-cases": string;
-  "home__use-cases--col": string;
-  "home__what-is": string;
-  "home__what-is--image": string;
-  "home__what-is--row": string;
   spin: string;
   "z-depth-0": string;
   "z-depth-1": string;

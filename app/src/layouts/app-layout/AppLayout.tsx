@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ToastContextController } from "context/toast/ToastContextController";
-import { LocaleSelector } from "ui/locale-selector/LocaleSelector";
 import { EVMWalletSelectorContextController } from "context/evm-wallet-selector/EVMWalletContextController";
 
 import { AppLayoutProps } from "./AppLayout.types";
@@ -39,12 +38,10 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <link rel="preload" href="/icons/icomoon.svg" as="font" crossOrigin="" />
       </Head>
       <ToastContextController>
-        <LocaleSelector>
-          <EVMWalletSelectorContextController>
-            <div id="modal-root" />
-            <main>{children}</main>
-          </EVMWalletSelectorContextController>
-        </LocaleSelector>
+        <EVMWalletSelectorContextController>
+          <div id="modal-root" />
+          <main>{children}</main>
+        </EVMWalletSelectorContextController>
       </ToastContextController>
     </>
   );

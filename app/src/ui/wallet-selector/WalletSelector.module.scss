@@ -49,7 +49,7 @@
     right: 0;
     z-index: $z-index-navigation;
     width: calc(100vw - 32px);
-    border: 2px solid var(--color-black);
+    border: 2px solid var(--color-background-contrast);
     border-bottom-right-radius: $border-radius;
     border-bottom-left-radius: $border-radius;
     background-color: var(--color-background);

@@ -19,7 +19,7 @@ export const WalletSelector: React.FC<WalletSelectorProps> = ({ className }) => 
 
   return (
     <div className={clsx(styles["wallet-selector"], className)}>
-      <Button size="xs" variant="outlined" color="secondary" onClick={handleOnConnectWalletClick}>
+      <Button size="xs" variant="gradient" color="secondary" onClick={handleOnConnectWalletClick}>
         {wallet.isConnected ? (
           <Typography.Text inline truncate>
             {wallet.address}
@@ -46,7 +46,7 @@ export const WalletSelector: React.FC<WalletSelectorProps> = ({ className }) => 
               </Typography.MiniDescription>
             </div>
             <div className={styles["wallet-selector__connect"]}>
-              <Button size="xs" variant="outlined" color="secondary" onClick={() => wallet.onClickConnect()}>
+              <Button size="xs" variant="gradient" color="secondary" onClick={() => wallet.onClickConnect()}>
                 {wallet.isConnected ? "Disconnect" : "Connect"}
               </Button>
             </div>

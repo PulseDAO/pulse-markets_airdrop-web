@@ -21,6 +21,7 @@ export type Styles = {
   "button--dark": string;
   "button--extra-small": string;
   "button--full-width": string;
+  "button--gradient": string;
   "button--info": string;
   "button--inverted": string;
   "button--large": string;
