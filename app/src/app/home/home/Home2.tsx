@@ -22,7 +22,7 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
 
   const contract = useEvmContract();
   const wallet = useWalletSelectorContext();
-  const { trigger } = useToastContext();
+  const toast = useToastContext();
 
   useEffect(() => {
     if (!contract) {
@@ -32,25 +32,21 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
     (async () => {
       const shares = await contract.shares(wallet.address!);
 
+      contract.subscribeToPaymentReleasedOnce(wallet.address!, (error, event) => {
+        if (!error && event) {
+          setLoading(false);
+          toast.trigger({
+            title: "Transaction Completed",
+            variant: "info",
+            position: "top",
+            children: <Typography.Text>The transaction was completed successfully</Typography.Text>,
+          });
+        }
+      });
+
       setContractData({ shares });
     })();
-  }, [contract, wallet.address]);
-
-  useEffect(() => {
-    if (!contract) return;
-
-    contract.subscribeToPaymentReleasedOnce(wallet.address!, (error, event) => {
-      if (!error && event) {
-        setLoading(false);
-        trigger({
-          title: "Transaction Completed",
-          variant: "info",
-          position: "top",
-          children: <Typography.Text>The transaction was completed successfully</Typography.Text>,
-        });
-      }
-    });
-  }, [contract, wallet.address]);
+  }, [contract, toast, wallet.address]);
 
   const handleOnClaimClick = async () => {
     try {
@@ -60,7 +56,8 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
       await contract.release(wallet.address!);
     } catch {
       setLoading(false);
-      trigger({
+
+      toast.trigger({
         title: "Error",
         variant: "error",
         position: "bottom",
@@ -74,40 +71,49 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
     }
   };
 
-  const ClaimSectionWrapper = () =>
-    Number(contractData.shares) ? (
-      <Button onClick={handleOnClaimClick}>Claim</Button>
-    ) : (
+  const getClaimAction = () => {
+    if (Number(contractData.shares)) {
+      return <Button onClick={handleOnClaimClick}>Claim</Button>;
+    }
+
+    return (
       <div className={styles["home__no-claim"]}>
         <Icon className={styles["home__no-claim--warning"]} name="icon-warning" />
         <Typography.Headline3>Sorry</Typography.Headline3>
-        <Typography.Text>Account {wallet.address} has no available claim</Typography.Text>
+        <Typography.Text>
+          Account {wallet.address}
+          <br />
+          has no available claim.
+        </Typography.Text>
       </div>
     );
+  };
+
+  if (loading) {
+    return <GenericLoader />;
+  }
 
   return (
     <>
       <WalletSelectorNavbar />
       <div className={clsx(styles.home, className)}>
-        <section id="intro" className={clsx(styles.home__section, styles.home__intro)}>
-          {loading ? (
-            <GenericLoader />
-          ) : (
-            <>
-              <div className={styles["home__intro--linear-gradient"]} />
-              <Grid.Container>
-                <Grid.Row>
-                  <Grid.Col lg={6}>
-                    <div className={styles["home__intro--box"]}>
-                      <Typography.Headline1 className={styles["home__intro--headline"]}>Airdrop</Typography.Headline1>
-                      <Typography.Text flat>Claim Aurora ETH</Typography.Text>
-                      {wallet.address && <ClaimSectionWrapper />}
-                    </div>
-                  </Grid.Col>
-                </Grid.Row>
-              </Grid.Container>
-            </>
-          )}
+        <section id="intro" className={clsx(styles.home__intro)}>
+          <div className={styles["home__intro--linear-gradient"]}>
+            <div />
+          </div>
+          <div>
+            <Grid.Container>
+              <Grid.Row>
+                <Grid.Col lg={6} offset={{ lg: 3 }}>
+                  <div className={styles["home__intro--box"]}>
+                    <Typography.Headline1 className={styles["home__intro--headline"]}>Airdrop</Typography.Headline1>
+                    <Typography.Text flat>Claim Aurora ETH</Typography.Text>
+                    {wallet.address && getClaimAction()}
+                  </div>
+                </Grid.Col>
+              </Grid.Row>
+            </Grid.Container>
+          </div>
         </section>
       </div>
     </>

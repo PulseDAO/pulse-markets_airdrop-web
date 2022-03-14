@@ -18,12 +18,12 @@ export const WalletSelectorNavbar: React.FC<WalletSelectorNavbarProps> = () => {
           <Grid.Col lg={3} sm={3} xs={6}>
             <div className={styles["wallet-selector-navbar__logo-mobile"]}>
               <Typography.Link href={routes.home}>
-                <p>Pulse Logo</p>
+                <img src="/brand/logo-pulse-markets.png" alt="pulse-markets-logo" />
               </Typography.Link>
             </div>
             <div className={styles["wallet-selector-navbar__logo-desktop"]}>
               <Typography.Link href={routes.home}>
-                <p>Pulse Logo</p>
+                <img src="/brand/logo-pulse-markets.png" alt="pulse-markets-logo" />
               </Typography.Link>
             </div>
           </Grid.Col>

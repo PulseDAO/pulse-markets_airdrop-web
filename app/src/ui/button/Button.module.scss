@@ -446,6 +446,19 @@ $HALF_LOADER_SIZE: 15px;
     }
   }
 
+  &--gradient {
+    border: none;
+    padding: 3px;
+    background-image: linear-gradient(90deg, #6f86ff, #b372ce 49%, #ff7586);
+    transform-style: preserve-3d;
+
+    > div {
+      border-radius: 1000px;
+      padding: 6px 18px;
+      background-color: #13111a;
+    }
+  }
+
   // Loader classes
 
   &__loading-floating-border {
