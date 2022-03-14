@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import { Contract } from "web3-eth-contract";
+import { Contract, EventData } from "web3-eth-contract";
 import { AbiItem } from "web3-utils/types";
 
 import { Provider } from "context/evm-wallet-selector/EVMWalletSelectorContext.types";
@@ -25,5 +25,19 @@ export class AirdropContract {
     } catch {
       return "0.00";
     }
+  }
+
+  async release(payee: string) {
+    const receipt = await this.contract.methods.release(payee).send({ from: payee });
+
+    return receipt;
+  }
+
+  subscribeToPaymentReleasedOnce(payee: string, eventHandler: (error: Error, event: EventData) => void) {
+    return this.contract.once("PaymentReleased", { filter: { to: payee } }, eventHandler);
+  }
+
+  subscribeToPaymentReleased(payee: string) {
+    return this.contract.events.PaymentReleased({ filter: { to: payee } });
   }
 }

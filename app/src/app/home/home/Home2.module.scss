@@ -145,4 +145,17 @@
       text-decoration: none;
     }
   }
+
+  &__no-claim {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 20vh;
+    padding: ($navbar-height / 2) 0;
+
+    &--warning {
+      min-width: 100px;
+    }
+  }
 }
