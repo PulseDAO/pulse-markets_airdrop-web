@@ -303,5 +303,9 @@ code {
   }
 }
 
+.web3modal-modal-lightbox {
+  z-index: 3;
+}
+
 @import "./forms/forms";
 @import "./icons";

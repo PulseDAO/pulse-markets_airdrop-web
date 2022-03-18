@@ -73,7 +73,11 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
 
   const getClaimAction = () => {
     if (Number(contractData.shares)) {
-      return <Button onClick={handleOnClaimClick}>Claim</Button>;
+      return (
+        <Button variant="gradient" onClick={handleOnClaimClick}>
+          Claim
+        </Button>
+      );
     }
 
     return (
@@ -107,7 +111,7 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
                 <Grid.Col lg={6} offset={{ lg: 3 }}>
                   <div className={styles["home__intro--box"]}>
                     <Typography.Headline1 className={styles["home__intro--headline"]}>Airdrop</Typography.Headline1>
-                    <Typography.Text flat>Claim Aurora ETH</Typography.Text>
+                    <Typography.Text>Claim Aurora ETH</Typography.Text>
                     {wallet.address && getClaimAction()}
                   </div>
                 </Grid.Col>
