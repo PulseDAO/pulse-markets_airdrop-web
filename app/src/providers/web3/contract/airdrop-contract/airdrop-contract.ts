@@ -11,10 +11,7 @@ export class AirdropContract {
 
   constructor(provider: Provider) {
     const web3 = new Web3(provider);
-    this.contract = new web3.eth.Contract(
-      PaymentSplitter.abi as AbiItem[],
-      "0x336554f1C7eF516b9c690239844CBcEEb81c0412",
-    );
+    this.contract = new web3.eth.Contract(PaymentSplitter.abi as AbiItem[], process.env.NEXT_PUBLIC_AIRDROP_CONTRACT);
   }
 
   async shares(payee: string) {
