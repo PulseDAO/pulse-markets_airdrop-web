@@ -31,44 +31,41 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
 
     (async () => {
       const shares = await contract.shares(wallet.address!);
-
-      contract.subscribeToPaymentReleasedOnce(wallet.address!, (error, event) => {
-        if (!error && event) {
-          setLoading(false);
-          toast.trigger({
-            title: "Transaction Completed",
-            variant: "info",
-            position: "top",
-            children: <Typography.Text>The transaction was completed successfully</Typography.Text>,
-          });
-        }
-      });
-
       setContractData({ shares });
     })();
   }, [contract, toast, wallet.address]);
 
   const handleOnClaimClick = async () => {
-    try {
-      if (!contract) return;
+    if (!contract) return;
 
-      setLoading(true);
-      await contract.release(wallet.address!);
-    } catch {
-      setLoading(false);
-
-      toast.trigger({
-        title: "Error",
-        variant: "error",
-        position: "bottom",
-        withTimeout: true,
-        children: (
-          <Typography.Text>
-            Something went wrong while claiming your available Aurora ETH. Please try again.
-          </Typography.Text>
-        ),
+    contract
+      .release(wallet.address!)
+      .on("sending", (_transactionInfo: any) => {
+        setLoading(true);
+      })
+      .on("receipt", (_receipt: any) => {
+        setLoading(false);
+        toast.trigger({
+          title: "Transaction Completed",
+          variant: "info",
+          position: "top",
+          children: <Typography.Text>The transaction was completed successfully</Typography.Text>,
+        });
+      })
+      .on("error", (_error: Error) => {
+        setLoading(false);
+        toast.trigger({
+          title: "Error",
+          variant: "error",
+          position: "bottom",
+          withTimeout: true,
+          children: (
+            <Typography.Text>
+              Something went wrong while claiming your available Aurora ETH. Please try again.
+            </Typography.Text>
+          ),
+        });
       });
-    }
   };
 
   const getClaimAction = () => {
