@@ -40,25 +40,26 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
 
     contract
       .release(wallet.address!)
-      .on("sending", (_transactionInfo: any) => {
+      .on("sending", () => {
         setLoading(true);
       })
-      .on("receipt", (_receipt: any) => {
+      .on("receipt", () => {
         setLoading(false);
+
         toast.trigger({
           title: "Transaction Completed",
           variant: "info",
-          position: "top",
+          position: "bottom",
           children: <Typography.Text>The transaction was completed successfully</Typography.Text>,
         });
       })
-      .on("error", (_error: Error) => {
+      .on("error", () => {
         setLoading(false);
+
         toast.trigger({
           title: "Error",
           variant: "error",
           position: "bottom",
-          withTimeout: true,
           children: (
             <Typography.Text>
               Something went wrong while claiming your available Aurora ETH. Please try again.
