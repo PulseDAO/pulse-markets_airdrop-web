@@ -4,9 +4,10 @@ import { Typography } from "../typography/Typography";
 import { useRoutes } from "hooks/useRoutes/useRoutes";
 import { Grid } from "ui/grid/Grid";
 import { WalletSelector } from "ui/wallet-selector/WalletSelector";
+import { ThemeSelector } from "ui/theme-selector/ThemeSelector";
 
-import styles from "./WalletSelectorNavbar.module.scss";
 import { WalletSelectorNavbarProps } from "./WalletSelectorNavbar.types";
+import styles from "./WalletSelectorNavbar.module.scss";
 
 export const WalletSelectorNavbar: React.FC<WalletSelectorNavbarProps> = () => {
   const routes = useRoutes();
@@ -34,6 +35,9 @@ export const WalletSelectorNavbar: React.FC<WalletSelectorNavbarProps> = () => {
           </Hidden>
           <Grid.Col lg={5} sm={5} xs={6}>
             <div className={styles["wallet-selector-navbar__right"]}>
+              <div className={styles["wallet-selector-navbar__right--item"]}>
+                <ThemeSelector />
+              </div>
               <div className={styles["wallet-selector-navbar__right--item"]}>
                 <WalletSelector />
               </div>
