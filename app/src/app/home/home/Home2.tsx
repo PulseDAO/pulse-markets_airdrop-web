@@ -15,8 +15,9 @@ import { HomeProps } from "./Home.types";
 import styles from "./Home2.module.scss";
 
 export const Home2: React.FC<HomeProps> = ({ className }) => {
-  const [contractData, setContractData] = useState<{ shares: string }>({
+  const [contractData, setContractData] = useState<{ shares: string; released: string }>({
     shares: "0.00",
+    released: "0.00",
   });
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +32,9 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
 
     (async () => {
       const shares = await contract.shares(wallet.address!);
-      setContractData({ shares });
+      const released = await contract.released(wallet.address!);
+
+      setContractData({ shares, released });
     })();
   }, [contract, toast, wallet.address]);
 
@@ -70,7 +73,7 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
   };
 
   const getClaimAction = () => {
-    if (Number(contractData.shares)) {
+    if (Number(contractData.shares) && Number(contractData.released) === 0) {
       return (
         <Button variant="gradient" onClick={handleOnClaimClick}>
           Claim
