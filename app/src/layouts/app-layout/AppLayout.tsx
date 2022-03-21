@@ -22,8 +22,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <meta name="description" content={t("head.og.description")} />
         <meta property="og:title" content={t("head.og.title")} />
         <meta property="og:description" content={t("head.og.description")} />
-        <meta property="og:image" content={`/shared/og-image_${locale}.png`} />
-        <meta property="og:url" content="https://aufacicenta.com" />
+        <meta property="og:image" content="/shared/pulse.png" />
+        <meta property="og:url" content="https://airdrop.pulsemarkets.org/" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content={locale} />
         <link rel="preload" href="/icons/icomoon.eot" as="font" crossOrigin="" />
