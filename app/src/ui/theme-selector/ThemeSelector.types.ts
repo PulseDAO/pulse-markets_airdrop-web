@@ -5,7 +5,4 @@ export type ThemeSelectorProps = {
   className?: string;
 };
 
-export type ThemeState = {
-  hasChanged: boolean;
-  theme: "light" | "dark";
-};
+export type Theme = "light" | "dark";

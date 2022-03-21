@@ -26,6 +26,7 @@ export class AirdropContract {
 
   release(payee: string) {
     const eventEmitter = this.contract.methods.release(payee).send({ from: payee });
+    
     return eventEmitter;
   }
 
