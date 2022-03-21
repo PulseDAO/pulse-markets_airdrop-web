@@ -26,6 +26,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = () => {
 
   const handleOnThemeChange = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
+    localStorage.set("theme", newTheme);
     setTheme(newTheme);
   };
 
