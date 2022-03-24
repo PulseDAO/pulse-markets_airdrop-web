@@ -24,10 +24,20 @@ export class AirdropContract {
     }
   }
 
-  async release(payee: string) {
-    const receipt = await this.contract.methods.release(payee).send({ from: payee });
+  async released(payee: string) {
+    try {
+      const released = await this.contract.methods.released(payee).call();
 
-    return receipt;
+      return released;
+    } catch {
+      return "0.00";
+    }
+  }
+
+  release(payee: string) {
+    const eventEmitter = this.contract.methods.release(payee).send({ from: payee });
+
+    return eventEmitter;
   }
 
   subscribeToPaymentReleasedOnce(payee: string, eventHandler: (error: Error, event: EventData) => void) {

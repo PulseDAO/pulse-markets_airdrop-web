@@ -81,6 +81,10 @@
       justify-content: center;
       height: $navbar-height-mobile;
     }
+
+    svg {
+      color: var(--color-typography-text);
+    }
   }
 
   &__logo-mobile {
@@ -88,7 +92,7 @@
       display: none;
     }
 
-    img {
+    svg {
       width: $navbar-logo-width-mobile;
     }
   }
@@ -99,7 +103,7 @@
     }
     display: none;
 
-    img {
+    svg {
       @include atLargeTablet {
         width: $navbar-logo-width;
       }
@@ -117,7 +121,7 @@
       height: $navbar-height-mobile;
     }
 
-    img {
+    svg {
       @include atLargeTablet {
         width: $navbar-logo-width;
       }

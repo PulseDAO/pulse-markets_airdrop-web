@@ -127,7 +127,7 @@ body[data-theme="dark"] {
 
 body[data-theme="light"] {
   // Status colors
-  --color-status-info: #153fbd;
+  --color-status-info: #5234ff;
   --color-status-info-light: rgba(21, 63, 189, 0.6);
   --color-status-info-lighter: rgba(21, 63, 189, 0.3);
   --color-status-success: #aad055;
@@ -159,11 +159,11 @@ body[data-theme="light"] {
   --color-secondary: #7fbc94;
 
   // Background
-  --color-background: var(--color-black);
-  --color-background-contrast: var(--color-dark-9);
+  --color-background: var(--color-white);
+  --color-background-contrast: var(--color-dark-2);
 
   // Sidebar
-  --color-sidebar-item: var(--color-black);
+  --color-sidebar-item: var(--color-white);
 
   // Navbar
   --color-navbar-logo: var(--color-primary);
@@ -174,23 +174,23 @@ body[data-theme="light"] {
   --color-button-primary-hover: var(--color-primary);
   --color-button-primary-hover-text: var(--color-white);
   --color-button-primary-disabled: var(--color-dark-5);
-  --color-button-secondary: var(--color-white);
-  --color-button-secondary-text: var(--color-white);
-  --color-button-secondary-hover: var(--color-dark-8);
-  --color-button-secondary-hover-text: var(--color-white);
+  --color-button-secondary: var(--color-dark-9);
+  --color-button-secondary-text: var(--color-dark-9);
+  --color-button-secondary-hover: var(--color-black);
+  --color-button-secondary-hover-text: var(--color-black);
 
   // Typography
-  --color-typography-headline-1: var(--color-white);
-  --color-typography-headline-2: var(--color-white);
-  --color-typography-headline-3: var(--color-white);
-  --color-typography-headline-4: var(--color-white);
-  --color-typography-headline-5: var(--color-white);
+  --color-typography-headline-1: var(--color-black);
+  --color-typography-headline-2: var(--color-black);
+  --color-typography-headline-3: var(--color-black);
+  --color-typography-headline-4: var(--color-black);
+  --color-typography-headline-5: var(--color-black);
   --color-typography-headline-6: var(--color-dark-6);
-  --color-typography-text: var(--color-white);
-  --color-typography-text-bold: var(--color-white);
+  --color-typography-text: var(--color-black);
+  --color-typography-text-bold: var(--color-black);
   --color-typography-subtitle: var(--color-dark-7);
-  --color-typography-button-label: var(--color-white);
-  --color-typography-mini-button-label: var(--color-white);
+  --color-typography-button-label: var(--color-black);
+  --color-typography-mini-button-label: var(--color-black);
   --color-typography-description: var(--color-dark-6);
   --color-typography-mini-description: var(--color-dark-5);
   --color-typography-link: var(--color-primary);
