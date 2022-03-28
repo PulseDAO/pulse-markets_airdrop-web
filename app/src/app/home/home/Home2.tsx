@@ -10,6 +10,7 @@ import { useToastContext } from "hooks/useToastContext/useToastContext";
 import { Typography } from "ui/typography/Typography";
 import { GenericLoader } from "ui/generic-loader/GenericLoader";
 import { Icon } from "ui/icon/Icon";
+import { Modal } from "ui/modal/Modal";
 
 import { HomeProps } from "./Home.types";
 import styles from "./Home2.module.scss";
@@ -20,6 +21,7 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
     released: "0.00",
   });
   const [loading, setLoading] = useState(false);
+  const [isInstructionsModalVisible, setIsInstructionsModalVisible] = useState(false);
 
   const contract = useEvmContract();
   const wallet = useWalletSelectorContext();
@@ -115,12 +117,47 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
                     <Typography.Text>Claim Aurora ETH</Typography.Text>
                     {wallet.address && getClaimAction()}
                   </div>
+                  <Button
+                    variant="text"
+                    color="secondary"
+                    size="xs"
+                    onClick={() => setIsInstructionsModalVisible(true)}
+                  >
+                    Make sure you are connected to Aurora Mainnet
+                  </Button>
                 </Grid.Col>
               </Grid.Row>
             </Grid.Container>
           </div>
         </section>
       </div>
+
+      {isInstructionsModalVisible && (
+        <Modal
+          isOpened={isInstructionsModalVisible}
+          onClose={() => setIsInstructionsModalVisible(false)}
+          aria-labelledby="instructions modal"
+        >
+          <Modal.Header onClose={() => setIsInstructionsModalVisible(false)}>
+            <Typography.TextLead flat>Set your wallet to Aurora Mainnet</Typography.TextLead>
+          </Modal.Header>
+          <Modal.Content>
+            <Typography.Text>
+              Follow{" "}
+              <Typography.Anchor
+                href="https://doc.aurora.dev/getting-started/network-endpoints/#mainnet"
+                target="_blank"
+              >
+                these instructions
+              </Typography.Anchor>
+              , or
+            </Typography.Text>
+            <Typography.Text flat>Network: Aurora Mainnet</Typography.Text>
+            <Typography.Text flat>Chain ID: 1313161554</Typography.Text>
+            <Typography.Text flat>Endpoint URL: https://mainnet.aurora.dev</Typography.Text>
+          </Modal.Content>
+        </Modal>
+      )}
     </>
   );
 };
