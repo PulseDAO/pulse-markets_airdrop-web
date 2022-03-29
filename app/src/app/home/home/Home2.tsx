@@ -10,6 +10,8 @@ import { useToastContext } from "hooks/useToastContext/useToastContext";
 import { Typography } from "ui/typography/Typography";
 import { GenericLoader } from "ui/generic-loader/GenericLoader";
 import { Icon } from "ui/icon/Icon";
+import { Modal } from "ui/modal/Modal";
+import { MetamaskLogo } from "ui/icons/MetamaskLogo";
 
 import { HomeProps } from "./Home.types";
 import styles from "./Home2.module.scss";
@@ -20,6 +22,7 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
     released: "0.00",
   });
   const [loading, setLoading] = useState(false);
+  const [isInstructionsModalVisible, setIsInstructionsModalVisible] = useState(false);
 
   const contract = useEvmContract();
   const wallet = useWalletSelectorContext();
@@ -72,6 +75,41 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
       });
   };
 
+  const handleOnAddNetClick = async () => {
+    const auroraMainnetData = {
+      chainId: "0x4E454152",
+      chainName: "Aurora Mainnet",
+      nativeCurrency: {
+        name: "Ethereum",
+        symbol: "ETH",
+        decimals: 18,
+      },
+      rpcUrls: ["https://mainnet.aurora.dev"],
+      blockExplorerUrls: ["https://aurorascan.dev/"],
+    };
+
+    try {
+      await wallet?.context?.provider.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: auroraMainnetData.chainId }],
+      });
+    } catch (switchError: any) {
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (switchError.code === 4902) {
+        wallet.context.provider
+          .request({
+            method: "wallet_addEthereumChain",
+            params: [auroraMainnetData],
+          })
+          .catch((error: any) => {
+            if (error.code !== 4001) {
+              setIsInstructionsModalVisible(true);
+            }
+          });
+      }
+    }
+  };
+
   const getClaimAction = () => {
     if (Number(contractData.shares) && Number(contractData.released) === 0) {
       return (
@@ -115,12 +153,44 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
                     <Typography.Text>Claim Aurora ETH</Typography.Text>
                     {wallet.address && getClaimAction()}
                   </div>
+                  {wallet?.context.provider && (
+                    <Button variant="text" color="secondary" size="xs" onClick={handleOnAddNetClick}>
+                      <MetamaskLogo className={styles.home__metamask} /> Connect to Aurora Mainnet
+                    </Button>
+                  )}
                 </Grid.Col>
               </Grid.Row>
             </Grid.Container>
           </div>
         </section>
       </div>
+
+      {isInstructionsModalVisible && (
+        <Modal
+          isOpened={isInstructionsModalVisible}
+          onClose={() => setIsInstructionsModalVisible(false)}
+          aria-labelledby="instructions modal"
+        >
+          <Modal.Header onClose={() => setIsInstructionsModalVisible(false)}>
+            <Typography.TextLead flat>Set your wallet to Aurora Mainnet</Typography.TextLead>
+          </Modal.Header>
+          <Modal.Content>
+            <Typography.Text>
+              Follow{" "}
+              <Typography.Anchor
+                href="https://doc.aurora.dev/getting-started/network-endpoints/#mainnet"
+                target="_blank"
+              >
+                these instructions
+              </Typography.Anchor>
+              , or
+            </Typography.Text>
+            <Typography.Text flat>Network: Aurora Mainnet</Typography.Text>
+            <Typography.Text flat>Chain ID: 1313161554</Typography.Text>
+            <Typography.Text flat>Endpoint URL: https://mainnet.aurora.dev</Typography.Text>
+          </Modal.Content>
+        </Modal>
+      )}
     </>
   );
 };
