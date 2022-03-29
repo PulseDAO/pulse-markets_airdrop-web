@@ -111,4 +111,10 @@
       min-width: 100px;
     }
   }
+
+  &__metamask {
+    width: $navbar-height / 3;
+    height: $navbar-height / 3;
+    margin: $navbar-height / 6;
+  }
 }
