@@ -37,6 +37,9 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
       const shares = await contract.shares(wallet.address!);
       const released = await contract.released(wallet.address!);
 
+      wallet?.context?.provider?.on("chainChanged", () => {
+        wallet.onClickConnect();
+      });
       setContractData({ shares, released });
     })();
   }, [contract, toast, wallet.address]);
@@ -113,7 +116,7 @@ export const Home2: React.FC<HomeProps> = ({ className }) => {
   const getClaimAction = () => {
     if (Number(contractData.shares) && Number(contractData.released) === 0) {
       return (
-        <Button variant="gradient" onClick={handleOnClaimClick}>
+        <Button variant="gradient" color="secondary" onClick={handleOnClaimClick}>
           Claim
         </Button>
       );
