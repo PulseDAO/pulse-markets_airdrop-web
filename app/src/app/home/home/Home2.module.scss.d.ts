@@ -52,6 +52,7 @@ export type Styles = {
   "home__intro--image": string;
   "home__intro--linear-gradient": string;
   "home__intro--text-block": string;
+  home__metamask: string;
   "home__no-claim": string;
   "home__no-claim--warning": string;
   "home__property-card--cta": string;
