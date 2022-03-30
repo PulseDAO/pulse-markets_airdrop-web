@@ -20,12 +20,12 @@ export const WalletSelectorNavbar: React.FC<WalletSelectorNavbarProps> = () => {
           <Grid.Col lg={3} sm={3} xs={6}>
             <div className={styles["wallet-selector-navbar__logo-mobile"]}>
               <Typography.Link href={routes.home}>
-                <PulseIcon />
+                <PulseIcon variant="mobile" />
               </Typography.Link>
             </div>
             <div className={styles["wallet-selector-navbar__logo-desktop"]}>
               <Typography.Link href={routes.home}>
-                <PulseIcon />
+                <PulseIcon variant="desktop" />
               </Typography.Link>
             </div>
           </Grid.Col>
